@@ -1,2 +1,1 @@
-export const getRatingColor = (rating: number) =>
-(Math.round(rating) * 100) / 5;
+export const getRatingColor = (rating: number) => (Math.round(rating) * 100) / 5;
