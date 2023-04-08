@@ -7,12 +7,10 @@ import Map from '../../components/map/map';
 import Sort from '../../components/sort/sort';
 import { CityLocation } from '../../mocks/offers';
 import { Offer } from '../../types/offer';
-
 type HomeProps = {
   offersCount: number;
   offers: Offer[];
 };
-
 const Home: React.FC<HomeProps> = ({ offersCount, offers }) => {
   const [selectedOfferId, setSelectedOfferId] = React.useState<number | null>(
     null
@@ -22,7 +20,6 @@ const Home: React.FC<HomeProps> = ({ offersCount, offers }) => {
       <Helmet>
         <title>Six Cities. Home</title>
       </Helmet>
-
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
         <Cities currentCity="Amsterdam" />
@@ -37,6 +34,8 @@ const Home: React.FC<HomeProps> = ({ offersCount, offers }) => {
               <ListOffers
                 offers={offers}
                 onListItemHover={setSelectedOfferId}
+                cardType="home"
+                classNames="cities__places-list tabs__content"
               />
             </section>
             <div className="cities__right-section">
@@ -53,5 +52,4 @@ const Home: React.FC<HomeProps> = ({ offersCount, offers }) => {
     </Layout>
   );
 };
-
 export default Home;
