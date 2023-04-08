@@ -26,58 +26,10 @@ const Header: React.FC<HeaderProps> = ({ hasNav = true }) => (
                   <span className="header__user-name user__name">
                     Oliver.conner@gmail.com
                   </span>
-                  <span className="header__favorite-count">3</span>
                 </Link>
               </li>
               <li className="header__nav-item">
                 <a className="header__nav-link" href="#">
-
-
-
-
-
-
-
-
-
-
-
-
-    Check warning
-        on line 33
-        in project/src/components/header/header.tsx
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    GitHub Actions / Check
-
-
-
-
-
-
-
-
-
-    The href attribute requires a valid value to be accessible. Provide a valid, navigable address as the href value. If you cannot provide a valid href, but still need the element to resemble a link, use a button and change it with appropriate styles. Learn more: https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/HEAD/docs/rules/anchor-is-valid.md
-
-
-
-
-
-
-
                   <span className="header__signout">Sign out</span>
                 </a>
               </li>
