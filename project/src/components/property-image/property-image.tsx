@@ -1,13 +1,10 @@
 import React from 'react';
-
-type PropertyImageProps = {
-  img: string;
+type PropertyItemProps = {
+  item: string;
 };
 
-const PropertyImage: React.FC<PropertyImageProps> = ({ img }) => (
-  <div className="property__image-wrapper">
-    <img className="property__image" src={img} alt="Photo studio" />
-  </div>
+const PropertyItem: React.FC<PropertyItemProps> = ({ item }) => (
+  <li className="property__inside-item">{item}</li>
 );
 
-export default PropertyImage;
+export default React.memo(PropertyItem);

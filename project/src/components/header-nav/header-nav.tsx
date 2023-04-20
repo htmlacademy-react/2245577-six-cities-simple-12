@@ -3,16 +3,20 @@ import { Link, useNavigate } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../const/const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { logoutAction } from '../../store/api-actions';
+import {
+  getAuthorizationStatus,
+  getInfo,
+} from '../../store/user-process/selectors';
 import { UserData } from '../../types/user-data';
 
 type UserLoggedProps = {
   info: UserData;
 };
-
 const UserLogged: React.FC<UserLoggedProps> = ({ info }) => {
   const { avatarUrl, email } = info;
 
   const dispatch = useAppDispatch();
+
   return (
     <ul className="header__nav-list">
       <li className="header__nav-item user">
@@ -36,8 +40,8 @@ const UserLogged: React.FC<UserLoggedProps> = ({ info }) => {
         <a
           className="header__nav-link"
           href="/#"
-          onClick={(event) => {
-            event.preventDefault();
+          onClick={(evt) => {
+            evt.preventDefault();
             dispatch(logoutAction());
           }}
         >
@@ -47,10 +51,8 @@ const UserLogged: React.FC<UserLoggedProps> = ({ info }) => {
     </ul>
   );
 };
-
 const UserNotLogged: React.FC = () => {
   const navigate = useNavigate();
-
   return (
     <ul className="header__nav-list">
       <li className="header__nav-item user">
@@ -71,15 +73,12 @@ const UserNotLogged: React.FC = () => {
 };
 
 const HeaderNav: React.FC = () => {
-  const info = useAppSelector((state) => state.informationUser);
-
-  const authorizationStatus = useAppSelector(
-    (state) => state.authorizationStatus
-  );
+  const info = useAppSelector(getInfo);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
 
   const isAuth = authorizationStatus === AuthorizationStatus.Auth;
 
-  if (!isAuth) {
+  if (!isAuth || info === null) {
     return (
       <nav className="header__nav">
         <UserNotLogged />
@@ -88,10 +87,8 @@ const HeaderNav: React.FC = () => {
   }
 
   return (
-    <nav className="header__nav">
-      {isAuth && info && <UserLogged info={info} />}
-    </nav>
+    <nav className="header__nav">{isAuth && <UserLogged info={info} />}</nav>
   );
 };
 
-export default HeaderNav;
+export default React.memo(HeaderNav);
