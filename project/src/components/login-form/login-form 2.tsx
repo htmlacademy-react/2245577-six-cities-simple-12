@@ -1,9 +1,6 @@
 import React from 'react';
-import { FetchStatus } from '../../const/const';
-import { useAppDispatch, useAppSelector } from '../../hooks';
+import { useAppDispatch } from '../../hooks';
 import { loginAction } from '../../store/api-actions';
-import { getAuthCheckedStatus } from '../../store/user-process/selectors';
-import LoadingScreen from '../loading-screen/loading-screen';
 import styles from './login-form.module.css';
 
 type FieldProps = {
@@ -12,9 +9,11 @@ type FieldProps = {
   errorText: string;
   regexp: RegExp;
 };
+
 type dataProps = {
   [key: string]: FieldProps;
 };
+
 const LoginForm: React.FC = () => {
   const dispatch = useAppDispatch();
   const [data, setData] = React.useState<dataProps>({
@@ -32,11 +31,13 @@ const LoginForm: React.FC = () => {
       regexp: /(?=.*[0-9])(?=.*[A-Za-z])[A-Za-z0-9]{2,}/,
     },
   });
+
   const handleLoginChange = ({
     target,
   }: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = target;
     const isValidField = data[name].regexp.test(value);
+
     setData({
       ...data,
       [name]: {
@@ -46,8 +47,10 @@ const LoginForm: React.FC = () => {
       },
     });
   };
+
   const handleSubmit = (evt: React.FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
+
     dispatch(
       loginAction({
         login: data.email.value,
@@ -55,9 +58,6 @@ const LoginForm: React.FC = () => {
       })
     );
   };
-
-  const fetchStatus = useAppSelector(getAuthCheckedStatus);
-  const isLoading = fetchStatus === FetchStatus.Loading;
 
   return (
     <form
@@ -68,6 +68,7 @@ const LoginForm: React.FC = () => {
     >
       <div className="login__input-wrapper form__input-wrapper">
         <label className="visually-hidden">E-mail</label>
+
         <input
           className="login__input form__input"
           type="email"
@@ -96,14 +97,11 @@ const LoginForm: React.FC = () => {
           <span className={styles.error}>{data.password.errorText}</span>
         )}
       </div>
-      <button
-        className="login__submit form__submit button"
-        type="submit"
-        disabled={isLoading}
-      >
-        {isLoading ? <LoadingScreen type="small" /> : 'Sign in'}
+      <button className="login__submit form__submit button" type="submit">
+        Sign in
       </button>
     </form>
   );
 };
+
 export default LoginForm;
