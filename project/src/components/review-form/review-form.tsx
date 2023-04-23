@@ -19,6 +19,7 @@ const ReviewForm: React.FC = () => {
     rating: '',
     review: '',
   });
+
   const handleChangeData = (
     evt: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -37,6 +38,7 @@ const ReviewForm: React.FC = () => {
           id: Number(id),
         })
       );
+      evt.currentTarget.reset();
     }
   };
 
@@ -100,4 +102,5 @@ const ReviewForm: React.FC = () => {
     </form>
   );
 };
+
 export default ReviewForm;

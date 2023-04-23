@@ -5,6 +5,7 @@ import 'leaflet/dist/leaflet.css';
 import { City, Offer } from '../../types/offer';
 import useMap from '../../hooks/use-map';
 import { URL_MARKER_CURRENT, URL_MARKER_DEFAULT } from '../../const/const';
+
 type MapProps = {
   className: string;
   city: City;
@@ -18,11 +19,13 @@ const defaultCustomIcon = new Icon({
   iconSize: [27, 39],
   iconAnchor: [13.5, 39],
 });
+
 const currentCustomIcon = new Icon({
   iconUrl: URL_MARKER_CURRENT,
   iconSize: [27, 39],
   iconAnchor: [13.5, 39],
 });
+
 const Map: React.FC<MapProps> = ({
   className,
   city,
@@ -43,6 +46,7 @@ const Map: React.FC<MapProps> = ({
       );
     }
   }, [map, city]);
+
   React.useEffect(() => {
     if (map) {
       offers.forEach((offer) => {
@@ -64,15 +68,17 @@ const Map: React.FC<MapProps> = ({
     return () => {
       layer.clearLayers();
     };
-  }, [map, offers, selectedOfferId]);
-  
+  }, [layer, map, offers, selectedOfferId]);
+
   return (
     <section
       className={cn('map', className)}
       style={{ height: height }}
       ref={mapRef}
+      data-testid="map"
     >
     </section>
   );
 };
+
 export default Map;

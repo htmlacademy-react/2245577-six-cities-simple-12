@@ -3,11 +3,13 @@ export enum AppRoute {
   Property = '/offer/:id',
   Root = '/',
 }
+
 export enum AuthorizationStatus {
   Auth = 'AUTH',
   NoAuth = 'NO_AUTH',
   Unknown = 'UNKNOWN',
 }
+
 export const REVIEW_STARS = [
   { value: 5, title: 'perfect' },
   { value: 4, title: 'good' },
@@ -15,8 +17,11 @@ export const REVIEW_STARS = [
   { value: 2, title: 'terribly' },
   { value: 1, title: 'badly' },
 ];
+
 export const URL_MARKER_DEFAULT = 'img/pin.svg';
+
 export const URL_MARKER_CURRENT = 'img/pin-active.svg';
+
 export const CITIES = [
   'Paris',
   'Cologne',
@@ -25,12 +30,14 @@ export const CITIES = [
   'Hamburg',
   'Dusseldorf',
 ];
+
 export const SortingTypes = [
   'Popular',
   'Price: low to high',
   'Price: high to low',
   'Top rated first',
 ];
+
 export enum APIRoute {
   Offers = '/hotels',
   Login = '/login',

@@ -5,8 +5,9 @@ import HeaderNav from '../header-nav/header-nav';
 type HeaderProps = {
   hasNav?: boolean;
 };
+
 const Header: React.FC<HeaderProps> = ({ hasNav = true }) => (
-  <header className="header">
+  <header className="header" data-testid="header">
     <div className="container">
       <div className="header__wrapper">
         <div className="header__left">
@@ -17,4 +18,5 @@ const Header: React.FC<HeaderProps> = ({ hasNav = true }) => (
     </div>
   </header>
 );
+
 export default Header;

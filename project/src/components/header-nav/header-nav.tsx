@@ -12,6 +12,7 @@ import { UserData } from '../../types/user-data';
 type UserLoggedProps = {
   info: UserData;
 };
+
 const UserLogged: React.FC<UserLoggedProps> = ({ info }) => {
   const { avatarUrl, email } = info;
 
@@ -51,8 +52,10 @@ const UserLogged: React.FC<UserLoggedProps> = ({ info }) => {
     </ul>
   );
 };
+
 const UserNotLogged: React.FC = () => {
   const navigate = useNavigate();
+
   return (
     <ul className="header__nav-list">
       <li className="header__nav-item user">
