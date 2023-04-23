@@ -1,4 +1,5 @@
 import { render, screen } from '@testing-library/react';
+
 import PropertyImage from './property-image';
 import { datatype } from 'faker';
 import { MemoryRouter } from 'react-router-dom';

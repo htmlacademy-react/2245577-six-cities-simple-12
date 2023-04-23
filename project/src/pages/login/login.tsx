@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+
 import Layout from '../../components/layout/layout';
 import LoginForm from '../../components/login-form/login-form';
 import { AppRoute, AuthorizationStatus, CITIES } from '../../const/const';
@@ -7,6 +8,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import { changeCity } from '../../store/app-slice/app';
 import { getAuthorizationStatus } from '../../store/user-process/selectors';
 import { getRandomCity } from '../../utils/utils';
+
 const Login: React.FC = () => {
   const randomCity = getRandomCity(CITIES);
   const dispatch = useAppDispatch();
@@ -19,6 +21,7 @@ const Login: React.FC = () => {
       navigate(AppRoute.Root);
     }
   }, [statusAuth]);
+
   return (
     <Layout className="page--gray page--login" hasNav={false} pageTitle="Login">
       <main className="page__main page__main--login">
@@ -43,4 +46,5 @@ const Login: React.FC = () => {
     </Layout>
   );
 };
+
 export default Login;

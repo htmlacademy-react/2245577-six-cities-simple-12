@@ -7,6 +7,7 @@ type CitiesProps = {
   currentCity: string;
   onChangeCity: (city: string) => void;
 };
+
 const Cities: React.FC<CitiesProps> = ({ currentCity, onChangeCity }) => (
   <div className="tabs">
     <section className="locations container">
@@ -34,4 +35,5 @@ const Cities: React.FC<CitiesProps> = ({ currentCity, onChangeCity }) => (
     </section>
   </div>
 );
+
 export default Cities;

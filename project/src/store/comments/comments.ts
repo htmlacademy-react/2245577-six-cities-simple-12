@@ -8,6 +8,7 @@ const initialState: CommentsData = {
   commentsStatus: FetchStatus.Idle,
   commentStatus: FetchStatus.Idle,
 };
+
 export const commentsData = createSlice({
   name: NameSpace.Comments,
   initialState,

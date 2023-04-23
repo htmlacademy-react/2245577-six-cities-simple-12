@@ -18,6 +18,7 @@ const cardClassnames = {
     image: 'cities__image-wrapper place-card__image-wrapper',
     cardInfo: 'place-card__info',
   },
+
   property: {
     article: 'near-places__card place-card',
     image: 'near-places__image-wrapper place-card__image-wrapper',
@@ -31,8 +32,10 @@ const Card: React.FC<CardProps> = ({ offer, onCardHover, cardType }) => {
   const link = generatePath(AppRoute.Property, {
     id: `${id}`,
   });
+
   const { article, image, cardInfo } = cardClassnames[cardType];
   const typePlace = type.replace(type[0], type[0].toUpperCase());
+
   return (
     <article
       className={article}
@@ -69,4 +72,5 @@ const Card: React.FC<CardProps> = ({ offer, onCardHover, cardType }) => {
     </article>
   );
 };
+
 export default Card;

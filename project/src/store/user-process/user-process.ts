@@ -8,6 +8,7 @@ const initialState: UserProcess = {
   info: null,
   fetchStatus: FetchStatus.Idle,
 };
+
 export const userProcess = createSlice({
   name: NameSpace.User,
   initialState,

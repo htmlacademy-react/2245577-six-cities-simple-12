@@ -7,10 +7,13 @@ import { changeSort } from '../../store/app-slice/app';
 type SortProps = {
   currentSortName: string;
 };
+
 const Sort: React.FC<SortProps> = ({ currentSortName }) => {
   const [isSortOpen, setSortOpen] = React.useState(false);
   const sortRef = React.useRef<HTMLFormElement>(null);
+
   const dispatch = useAppDispatch();
+
   React.useEffect(() => {
     const handleClickOutside = (evt: MouseEvent) => {
       if (sortRef.current && !evt.composedPath().includes(sortRef.current)) {
@@ -18,8 +21,10 @@ const Sort: React.FC<SortProps> = ({ currentSortName }) => {
       }
     };
     document.body.addEventListener('click', handleClickOutside);
+
     return () => document.body.removeEventListener('click', handleClickOutside);
   }, []);
+
   const handlerChangeSort = (sortName: string) => {
     dispatch(changeSort(sortName));
     setSortOpen(false);

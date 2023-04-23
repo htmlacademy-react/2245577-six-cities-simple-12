@@ -1,6 +1,7 @@
 import React from 'react';
 import Logo from '../logo/logo';
 import HeaderNav from '../header-nav/header-nav';
+
 type HeaderProps = {
   hasNav?: boolean;
 };
@@ -17,4 +18,5 @@ const Header: React.FC<HeaderProps> = ({ hasNav = true }) => (
     </div>
   </header>
 );
+
 export default Header;

@@ -9,6 +9,7 @@ const initialState: OffersData = {
   offer: null,
   offerStatus: FetchStatus.Idle,
 };
+
 export const offersData = createSlice({
   name: NameSpace.Offers,
   initialState,

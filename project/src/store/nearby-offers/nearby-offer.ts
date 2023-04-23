@@ -7,6 +7,7 @@ const initialState: NearbyOffersData = {
   offers: [],
   offersStatus: FetchStatus.Idle,
 };
+
 export const nearbyOffersData = createSlice({
   name: NameSpace.Nearby,
   initialState,

@@ -10,19 +10,24 @@ import { postCommentAction } from '../../store/api-actions';
 import { getCommentStatusSelector } from '../../store/comments/selectors';
 import LoadingScreen from '../loading-screen/loading-screen';
 import RatingStar from '../rating-star/rating-star';
+
 const ReviewForm: React.FC = () => {
   const dispatch = useAppDispatch();
   const { id } = useParams();
+
   const [data, setData] = React.useState({
     rating: '',
     review: '',
   });
+
   const handleChangeData = (
     evt: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     setData({ ...data, [evt.target.name]: evt.target.value });
   };
+
   const { isLoading, isSuccess } = useAppSelector(getCommentStatusSelector);
+
   const handleSubmit = (evt: React.FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
     if (id) {
@@ -45,10 +50,12 @@ const ReviewForm: React.FC = () => {
       });
     }
   }, [isSuccess]);
+
   const isValidForm =
     data.rating &&
     data.review.length < MAX_COMMENT_LENGHT &&
     data.review.length > MIN_COMMENT_LENGTH;
+
   return (
     <form
       className="reviews__form form"
@@ -95,4 +102,5 @@ const ReviewForm: React.FC = () => {
     </form>
   );
 };
+
 export default ReviewForm;

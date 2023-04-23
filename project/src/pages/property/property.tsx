@@ -29,13 +29,16 @@ import {
 import { getAuthorizationStatus } from '../../store/user-process/selectors';
 import { getRatingColor } from '../../utils/utils';
 import FullPageError from '../full-page-error/full-page-error';
+
 const Property: React.FC = () => {
   const { id } = useParams();
+
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
   const { isLoading, isError } = useAppSelector(getPropertyOfferStatus);
   const dispatch = useAppDispatch();
   const statusLogOut = authorizationStatus === AuthorizationStatus.NoAuth;
   const isAuth = authorizationStatus === AuthorizationStatus.Auth;
+
   React.useEffect(() => {
     if (id) {
       dispatch(fetchCommentsAction(Number(id)));
@@ -47,12 +50,15 @@ const Property: React.FC = () => {
   const comments = useAppSelector(sortComments);
   const nearbyOffers = useAppSelector(getNearbyOffers);
   const room = useAppSelector(getPropertyOffer);
+
   if (isLoading || !room) {
     return <LoadingScreen type="big" />;
   }
+
   if (isError) {
     return <FullPageError />;
   }
+
   const cityLocation = room.city;
   const {
     images,
@@ -67,7 +73,9 @@ const Property: React.FC = () => {
     host,
   } = room;
   const { avatarUrl, name, isPro } = host;
+
   const nearOffers = [...nearbyOffers.slice(0, COUNT_NEAR_OFFER), room];
+
   return (
     <Layout pageTitle="Property">
       <main className="page__main page__main--property">
