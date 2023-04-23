@@ -1,12 +1,12 @@
 import React from 'react';
 import cn from 'classnames';
 import { CITIES } from '../../const/const';
+import { Link } from 'react-router-dom';
 
 type CitiesProps = {
   currentCity: string;
   onChangeCity: (city: string) => void;
 };
-
 const Cities: React.FC<CitiesProps> = ({ currentCity, onChangeCity }) => (
   <div className="tabs">
     <section className="locations container">
@@ -17,16 +17,16 @@ const Cities: React.FC<CitiesProps> = ({ currentCity, onChangeCity }) => (
           });
           return (
             <li className="locations__item" key={city}>
-              <a
+              <Link
                 className={className}
-                href="/#"
+                to="/#"
                 onClick={(evt) => {
                   evt.preventDefault();
                   onChangeCity(city);
                 }}
               >
                 <span>{city}</span>
-              </a>
+              </Link>
             </li>
           );
         })}

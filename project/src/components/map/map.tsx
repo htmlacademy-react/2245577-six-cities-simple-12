@@ -60,7 +60,7 @@ const Map: React.FC<MapProps> = ({
     return () => {
       layer.clearLayers();
     };
-  }, [map, offers, selectedOfferId]);
+  }, [layer, map, offers, selectedOfferId]);
 
   return (
     <section
