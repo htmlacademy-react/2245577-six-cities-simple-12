@@ -1,14 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { FetchStatus, NameSpace } from '../../const/const';
-import { Offer } from '../../types/offer';
+import { OffersData } from '../../types/state';
 import { fetchOffersAction, fetchPropertyOfferAction } from '../api-actions';
-
-type OffersData = {
-  offers: Offer[];
-  offersStatus: FetchStatus;
-  offer: Offer | null;
-  offerStatus: FetchStatus;
-};
 
 const initialState: OffersData = {
   offers: [],
@@ -16,7 +9,6 @@ const initialState: OffersData = {
   offer: null,
   offerStatus: FetchStatus.Idle,
 };
-
 export const offersData = createSlice({
   name: NameSpace.Offers,
   initialState,

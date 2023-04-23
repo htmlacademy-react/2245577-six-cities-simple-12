@@ -1,16 +1,11 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { CITIES, NameSpace, SortingTypes } from '../../const/const';
-
-type AppData = {
-  city: string;
-  sortName: string;
-};
+import { AppData } from '../../types/state';
 
 const initialState: AppData = {
   city: CITIES[0],
   sortName: SortingTypes[0],
 };
-
 export const appData = createSlice({
   name: NameSpace.App,
   initialState,
@@ -23,5 +18,4 @@ export const appData = createSlice({
     },
   },
 });
-
 export const { changeCity, changeSort } = appData.actions;

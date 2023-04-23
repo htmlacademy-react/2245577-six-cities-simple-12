@@ -12,7 +12,6 @@ type MapProps = {
   selectedOfferId?: number | null;
   height: string;
 };
-
 const defaultCustomIcon = new Icon({
   iconUrl: URL_MARKER_DEFAULT,
   iconSize: [27, 39],
@@ -33,7 +32,6 @@ const Map: React.FC<MapProps> = ({
   const mapRef = React.useRef(null);
   const layer = new LayerGroup();
   const map = useMap(mapRef, city);
-
   React.useEffect(() => {
     if (map) {
       map.flyTo(
@@ -50,7 +48,6 @@ const Map: React.FC<MapProps> = ({
           lat: offer.location.latitude,
           lng: offer.location.longitude,
         });
-
         marker.setIcon(
           selectedOfferId && offer.id === selectedOfferId
             ? currentCustomIcon
@@ -58,19 +55,19 @@ const Map: React.FC<MapProps> = ({
         );
         layer.addLayer(marker);
       });
-
       layer.addTo(map);
     }
     return () => {
       layer.clearLayers();
     };
   }, [map, offers, selectedOfferId]);
-  
+
   return (
     <section
       className={cn('map', className)}
       style={{ height: height }}
       ref={mapRef}
+      data-testid="map"
     >
     </section>
   );
