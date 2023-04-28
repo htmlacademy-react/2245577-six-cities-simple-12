@@ -34,8 +34,8 @@ const Map: React.FC<MapProps> = ({
   height,
 }) => {
   const mapRef = React.useRef(null);
-  const layer = new LayerGroup();
   const map = useMap(mapRef, city);
+  const layer = new LayerGroup();
 
   React.useEffect(() => {
     if (map) {
@@ -68,7 +68,7 @@ const Map: React.FC<MapProps> = ({
     return () => {
       layer.clearLayers();
     };
-  }, [layer, map, offers, selectedOfferId]);
+  }, [map, offers, selectedOfferId]);
 
   return (
     <section

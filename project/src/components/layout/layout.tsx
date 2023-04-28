@@ -12,8 +12,8 @@ type LayoutProps = {
 
 const Layout: React.FC<LayoutProps> = ({
   className,
-  children,
   hasNav,
+  children,
   pageTitle,
 }) => (
   <div className={cn('page', className)}>
@@ -21,7 +21,6 @@ const Layout: React.FC<LayoutProps> = ({
     <Helmet>
       <title>Six Cities. {pageTitle}</title>
     </Helmet>
-
     {children}
   </div>
 );

@@ -6,7 +6,7 @@ import { Offer } from '../../types/offer';
 
 type ListOffersProps = {
   offers: Offer[];
-  cardType: 'home' | 'property';
+  cardType: 'favorite' | 'home' | 'property';
   classNames: string;
   onListItemHover?: (listItemName: number | null) => void;
 };
@@ -17,7 +17,7 @@ const ListOffers: React.FC<ListOffersProps> = ({
   cardType,
   classNames,
 }) => (
-  <div className={cn('places__list', classNames)} data-testid="offersList">
+  <div className={cn('places__list', classNames)}>
     {offers.map((offer) => (
       <Card
         key={offer.id}
@@ -29,4 +29,4 @@ const ListOffers: React.FC<ListOffersProps> = ({
   </div>
 );
 
-export default ListOffers;
+export default React.memo(ListOffers);

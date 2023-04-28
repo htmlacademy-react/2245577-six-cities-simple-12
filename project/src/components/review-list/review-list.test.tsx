@@ -8,6 +8,6 @@ describe('Component: ReviewsList', () => {
   it('should render correctly', () => {
     render(<ReviewList comments={reviews} />);
 
-    expect(screen.getByTestId('reviewList')).toBeInTheDocument();
+    expect(screen.getAllByTestId('reviewItem').length).toBe(reviews.length);
   });
 });

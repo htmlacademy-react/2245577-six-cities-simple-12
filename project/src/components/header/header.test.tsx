@@ -12,6 +12,11 @@ const fakeStore = {
     info: null,
     fetchStatus: FetchStatus.Success,
   },
+  [NameSpace.Favorite]: {
+    favorites: [],
+    favoritesStatus: FetchStatus.Success,
+    changeFavoriteStatus: FetchStatus.Idle,
+  },
 };
 
 describe('Component: Header', () => {

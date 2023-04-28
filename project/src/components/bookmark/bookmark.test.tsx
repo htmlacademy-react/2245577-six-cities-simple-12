@@ -3,12 +3,13 @@ import { render, screen } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import { MemoryRouter } from 'react-router-dom';
-import { makeFakeOffer, makeFakeUserData } from '../../mocks/mocks';
-import Card from './card';
+import { makeFakeOffers, makeFakeUserData } from '../../mocks/mocks';
 import { createAPI } from '../../services/api';
 import { State } from '../../types/state';
 import { Action, ThunkDispatch } from '@reduxjs/toolkit';
 import { AuthorizationStatus, FetchStatus, NameSpace } from '../../const/const';
+import Bookmark from './bookmark';
+import { datatype } from 'faker';
 
 const api = createAPI();
 const middlewares = [thunk.withExtraArgument(api)];
@@ -17,13 +18,15 @@ const mockStore = configureMockStore<
   Action<string>,
   ThunkDispatch<State, typeof api, Action>
 >(middlewares);
+
+const fakeOffers = makeFakeOffers();
 const fakeUserData = makeFakeUserData();
 
 const fakeStore = {
   [NameSpace.Favorite]: {
-    favorites: [],
+    favorites: fakeOffers,
     favoritesStatus: FetchStatus.Success,
-    changeFavoriteStatus: FetchStatus.Idle,
+    changeFavoriteStatus: FetchStatus.Success,
   },
   [NameSpace.User]: {
     authorizationStatus: AuthorizationStatus.Auth,
@@ -32,27 +35,29 @@ const fakeStore = {
   },
 };
 
-const offer = makeFakeOffer();
-const { previewImage, price, title } = offer;
+const className = datatype.string();
+const classNameSVG = datatype.string();
+const type = 'card';
+const onClick = jest.fn();
 
-describe('Component: Card', () => {
-  offer.isPremium = true;
-  offer.type = 'house';
+describe('Component: Bookmark', () => {
   const store = mockStore(fakeStore);
 
   it('should render correctly', () => {
     render(
       <Provider store={store}>
         <MemoryRouter>
-          <Card offer={offer} onCardHover={jest.fn()} cardType="home" />
+          <Bookmark
+            className={className}
+            classNameSVG={classNameSVG}
+            type={type}
+            onClick={onClick}
+            isActive
+          />
         </MemoryRouter>
       </Provider>
     );
 
-    expect(screen.getByText(`€${price}`)).toBeInTheDocument();
-    expect(screen.getByText(title)).toBeInTheDocument();
-    expect(screen.getByText('Premium')).toBeInTheDocument();
-    expect(screen.getByText(/house/i)).toBeInTheDocument();
-    expect(screen.getByAltText(title)).toHaveAttribute('src', previewImage);
+    expect(screen.getByTestId('bookmark')).toBeInTheDocument();
   });
 });

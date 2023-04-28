@@ -47,6 +47,11 @@ const fakeStore = {
     offer: fakeOffer,
     offerStatus: FetchStatus.Success,
   },
+  [NameSpace.Favorite]: {
+    favorites: [],
+    favoritesStatus: FetchStatus.Success,
+    changeFavoriteStatus: FetchStatus.Idle,
+  },
   [NameSpace.Comments]: {
     comments: [],
     commentsStatus: FetchStatus.Success,
@@ -113,6 +118,14 @@ describe('Application Routing', () => {
     expect(screen.getByRole('button').textContent).toBe('Sign in');
     expect(screen.getByPlaceholderText(/email/i)).toBeInTheDocument();
     expect(screen.getByPlaceholderText(/password/i)).toBeInTheDocument();
+  });
+
+  it('should render "Favorites" when user navigate to "/favorite"', () => {
+    history.push(AppRoute.Favorites);
+
+    render(fakeApp);
+
+    expect(screen.getByText(/Nothing yet saved/i)).toBeInTheDocument();
   });
 
   it('should render "Property" when user navigate to "/offer/:id"', () => {
