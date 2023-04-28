@@ -1,7 +1,7 @@
 import { AxiosInstance } from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AppDispatch, State } from '../types/state.js';
-import { Offer } from '../types/offer';
+import { FavoritePayload, Offer } from '../types/offer';
 import { CreateReviewPayload, Review } from '../types/review';
 import { redirectToRoute } from './action';
 import { saveToken, dropToken } from '../services/token';
@@ -73,6 +73,49 @@ export const fetchNearbyAction = createAsyncThunk<
   }
 });
 
+export const fetchFavoritesAction = createAsyncThunk<
+  Offer[],
+  undefined,
+  ThunkOptions
+>('data/fetchFavoritesOffers', async (_arg, { dispatch, extra: api }) => {
+  try {
+    const { data } = await api.get<Offer[]>(APIRoute.Favorite);
+    return data;
+  } catch (err) {
+    dispatch(
+      pushNotification({
+        type: 'error',
+        message: 'Unfortunately, we can\'t show favorite offers',
+      })
+    );
+    throw err;
+  }
+});
+
+export const changeFavoriteAction = createAsyncThunk<
+  Offer,
+  FavoritePayload,
+  ThunkOptions
+>(
+  'data/changeFavoriteOffers',
+  async ({ id, status }, { dispatch, extra: api }) => {
+    try {
+      const { data } = await api.post<Offer>(
+        `${APIRoute.Favorite}/${id}/${status}`
+      );
+      return data;
+    } catch (err) {
+      dispatch(
+        pushNotification({
+          type: 'error',
+          message: 'Unfortunately, we can\'t add/remove favorite offer',
+        })
+      );
+      throw err;
+    }
+  }
+);
+
 export const fetchCommentsAction = createAsyncThunk<
   Review[],
   number,
@@ -118,6 +161,7 @@ export const checkAuthAction = createAsyncThunk<
 >('user/checkAuth', async (_arg, { dispatch, extra: api }) => {
   try {
     const { data } = await api.get<UserData>(APIRoute.Login);
+    dispatch(fetchFavoritesAction());
     return data;
   } catch (err) {
     dispatch(
@@ -136,6 +180,7 @@ export const loginAction = createAsyncThunk<UserData, AuthData, ThunkOptions>(
         password,
       });
       saveToken(data.token);
+      dispatch(fetchFavoritesAction());
       dispatch(redirectToRoute(AppRoute.Root));
       return data;
     } catch (err) {

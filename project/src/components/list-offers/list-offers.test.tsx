@@ -17,6 +17,11 @@ const fakeStore = {
     info: null,
     fetchStatus: FetchStatus.Success,
   },
+  [NameSpace.Favorite]: {
+    favorites: [],
+    favoritesStatus: FetchStatus.Success,
+    changeFavoriteStatus: FetchStatus.Idle,
+  },
   [NameSpace.Offers]: {
     offers: fakeOffers,
     offersStatus: FetchStatus.Success,
@@ -40,6 +45,6 @@ describe('Component: ListOffers', () => {
       </Provider>
     );
 
-    expect(screen.getByTestId('offersList')).toBeInTheDocument();
+    expect(screen.getAllByTestId('offerItem').length).toBe(fakeOffers.length);
   });
 });

@@ -7,11 +7,11 @@ type ReviewListProps = {
 };
 
 const ReviewList: React.FC<ReviewListProps> = ({ comments }) => (
-  <ul className="reviews__list" data-testid="reviewList">
+  <ul className="reviews__list">
     {comments.map((comment) => (
       <ReviewItem key={comment.id} review={comment} />
     ))}
   </ul>
 );
 
-export default React.memo(ReviewList);
+export default ReviewList;

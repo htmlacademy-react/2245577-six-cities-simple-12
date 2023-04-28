@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../const/const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { logoutAction } from '../../store/api-actions';
+import { getFavorites } from '../../store/favorites/selectors';
 import {
   getAuthorizationStatus,
   getInfo,
@@ -11,9 +12,10 @@ import { UserData } from '../../types/user-data';
 
 type UserLoggedProps = {
   info: UserData;
+  count: number;
 };
 
-const UserLogged: React.FC<UserLoggedProps> = ({ info }) => {
+const UserLogged: React.FC<UserLoggedProps> = ({ info, count }) => {
   const { avatarUrl, email } = info;
 
   const dispatch = useAppDispatch();
@@ -22,7 +24,7 @@ const UserLogged: React.FC<UserLoggedProps> = ({ info }) => {
     <ul className="header__nav-list">
       <li className="header__nav-item user">
         <Link
-          to={AppRoute.Root}
+          to={AppRoute.Favorites}
           className="header__nav-link header__nav-link--profile"
         >
           <div className="header__avatar-wrapper user__avatar-wrapper">
@@ -35,6 +37,7 @@ const UserLogged: React.FC<UserLoggedProps> = ({ info }) => {
             />
           </div>
           <span className="header__user-name user__name">{email}</span>
+          <span className="header__favorite-count">{count}</span>
         </Link>
       </li>
       <li className="header__nav-item">
@@ -77,6 +80,7 @@ const UserNotLogged: React.FC = () => {
 
 const HeaderNav: React.FC = () => {
   const info = useAppSelector(getInfo);
+  const favorites = useAppSelector(getFavorites);
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
 
   const isAuth = authorizationStatus === AuthorizationStatus.Auth;
@@ -90,7 +94,9 @@ const HeaderNav: React.FC = () => {
   }
 
   return (
-    <nav className="header__nav">{isAuth && <UserLogged info={info} />}</nav>
+    <nav className="header__nav">
+      {isAuth && <UserLogged info={info} count={favorites.length} />}
+    </nav>
   );
 };
 

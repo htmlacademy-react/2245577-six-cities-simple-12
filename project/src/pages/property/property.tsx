@@ -1,6 +1,7 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import Badge from '../../components/badge/badge';
+import Bookmark from '../../components/bookmark/bookmark';
 import Layout from '../../components/layout/layout';
 import ListOffers from '../../components/list-offers/list-offers';
 import LoadingScreen from '../../components/loading-screen/loading-screen';
@@ -19,6 +20,7 @@ import {
   fetchCommentsAction,
   fetchNearbyAction,
   fetchPropertyOfferAction,
+  changeFavoriteAction,
 } from '../../store/api-actions';
 import { sortComments } from '../../store/comments/selectors';
 import { getNearbyOffers } from '../../store/nearby-offers/selectors';
@@ -71,10 +73,20 @@ const Property: React.FC = () => {
     price,
     goods,
     host,
+    isFavorite,
   } = room;
   const { avatarUrl, name, isPro } = host;
 
   const nearOffers = [...nearbyOffers.slice(0, COUNT_NEAR_OFFER), room];
+
+  const onFavoriteClick = () => {
+    dispatch(
+      changeFavoriteAction({
+        id: Number(id),
+        status: Number(!isFavorite),
+      })
+    );
+  };
 
   return (
     <Layout pageTitle="Property">
@@ -92,6 +104,14 @@ const Property: React.FC = () => {
               {isPremium && <Badge className="property__mark" />}
               <div className="property__name-wrapper">
                 <h1 className="property__name">{title}</h1>
+
+                <Bookmark
+                  className="property"
+                  type="room"
+                  classNameSVG="property__bookmark-icon"
+                  isActive={isFavorite}
+                  onClick={onFavoriteClick}
+                />
               </div>
               <div className="property__rating rating">
                 <div className="property__stars rating__stars">

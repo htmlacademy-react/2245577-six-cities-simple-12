@@ -1,5 +1,6 @@
 export enum AppRoute {
   Login = '/login',
+  Favorites = '/favorites',
   Property = '/offer/:id',
   Root = '/',
 }
@@ -43,13 +44,7 @@ export enum APIRoute {
   Login = '/login',
   Logout = '/logout',
   Comments = '/comments/',
-}
-
-export enum FetchStatus {
-  Idle = 'Idle',
-  Loading = 'Loading',
-  Success = 'Success',
-  Failed = 'Failed',
+  Favorite = '/favorite',
 }
 
 export enum NameSpace {
@@ -60,7 +55,15 @@ export enum NameSpace {
   Comments = 'COMMENTS',
   Nearby = 'NEARBY',
   Property = 'PROPERTY',
+  Favorite = 'FAVORITE',
   Notifications = 'NOTIFICATIONS',
+}
+
+export enum FetchStatus {
+  Idle = 'Idle',
+  Loading = 'Loading',
+  Success = 'Success',
+  Failed = 'Failed',
 }
 
 export const COUNT_NEAR_OFFER = 3;
@@ -68,4 +71,5 @@ export const TIMEOUT_SHOW_ERROR = 2000;
 export const MIN_COMMENT_LENGTH = 50;
 export const MAX_COMMENT_LENGHT = 300;
 export const MAX_COMMENTS = 10;
+export const ACTIVE_CLASSNAME = '__bookmark-button--active';
 export const MAX_PHOTOS = 6;

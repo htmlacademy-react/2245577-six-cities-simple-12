@@ -30,6 +30,12 @@ export type CommentsData = {
   commentStatus: FetchStatus;
 };
 
+export type FavoritesData = {
+  favorites: Offer[];
+  favoritesStatus: FetchStatus;
+  changeFavoriteStatus: FetchStatus;
+};
+
 export type OffersData = {
   offers: Offer[];
   offersStatus: FetchStatus;

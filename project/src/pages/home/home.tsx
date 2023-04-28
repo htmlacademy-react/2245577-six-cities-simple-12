@@ -1,17 +1,17 @@
 import React from 'react';
-import Cities from '../../components/cities/cities';
 import Layout from '../../components/layout/layout';
 import ListOffers from '../../components/list-offers/list-offers';
-import LoadingScreen from '../../components/loading-screen/loading-screen';
-import MainEmpty from '../../components/main-empty/main-empty';
 import Map from '../../components/map/map';
 import Sort from '../../components/sort/sort';
+import Cities from '../../components/cities/cities';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { fetchOffersAction } from '../../store/api-actions';
-import { changeCity } from '../../store/app-slice/app';
-import { getCity, getSortType } from '../../store/app-slice/selectors';
-import { getOffers, getOffersStatus } from '../../store/offers/selectors';
 import { getSortingOffers } from '../../utils/utils';
+import MainEmpty from '../../components/main-empty/main-empty';
+import { getOffers, getOffersStatus } from '../../store/offers/selectors';
+import { fetchOffersAction } from '../../store/api-actions';
+import LoadingScreen from '../../components/loading-screen/loading-screen';
+import { getCity, getSortType } from '../../store/app-slice/selectors';
+import { changeCity } from '../../store/app-slice/app';
 import FullPageError from '../full-page-error/full-page-error';
 
 const Home: React.FC = () => {
@@ -93,5 +93,4 @@ const Home: React.FC = () => {
     </Layout>
   );
 };
-
 export default Home;

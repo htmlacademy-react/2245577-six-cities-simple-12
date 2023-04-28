@@ -1,7 +1,6 @@
 import React from 'react';
 import cn from 'classnames';
 import { CITIES } from '../../const/const';
-import { Link } from 'react-router-dom';
 
 type CitiesProps = {
   currentCity: string;
@@ -18,16 +17,16 @@ const Cities: React.FC<CitiesProps> = ({ currentCity, onChangeCity }) => (
           });
           return (
             <li className="locations__item" key={city}>
-              <Link
+              <a
                 className={className}
-                to="/#"
+                href="/#"
                 onClick={(evt) => {
                   evt.preventDefault();
                   onChangeCity(city);
                 }}
               >
                 <span>{city}</span>
-              </Link>
+              </a>
             </li>
           );
         })}

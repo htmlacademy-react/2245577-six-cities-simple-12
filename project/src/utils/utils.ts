@@ -5,10 +5,13 @@ import { Review } from '../types/review';
 
 export const getRatingColor = (rating: number) =>
   (Math.round(rating) * 100) / 5;
+
 export const humanizeDate = (date: string, format: string) =>
   dayjs(date).format(format);
+
 export const getSortingOffers = (offers: Offer[], activeSort: string) => {
   const sortingOffers = offers.slice();
+
   switch (activeSort) {
     case SortingTypes[1]:
       return sortingOffers.sort((a: Offer, b: Offer) => a.price - b.price);

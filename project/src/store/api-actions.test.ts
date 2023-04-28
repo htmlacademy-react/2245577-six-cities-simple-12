@@ -10,6 +10,8 @@ import {
   fetchOffersAction,
   fetchPropertyOfferAction,
   fetchNearbyAction,
+  fetchFavoritesAction,
+  changeFavoriteAction,
   fetchCommentsAction,
   postCommentAction,
 } from './api-actions';
@@ -31,6 +33,7 @@ const offers = Array.from({ length: datatype.number(10) }, () =>
 );
 const offer = makeFakeOffer();
 const id = 1;
+const status = 1;
 const reviews = makeFakeReviews();
 const postReview = makeFakeReviewPayload();
 const user = makeFakeUserData();
@@ -45,6 +48,8 @@ describe('Async actions', () => {
     Action<string>,
     ThunkDispatch<State, typeof api, Action>
   >(middlewares);
+
+  //OFFERS
 
   it('should fetch offers when server return 200', async () => {
     const store = mockStore();
@@ -94,6 +99,8 @@ describe('Async actions', () => {
     ]);
   });
 
+  //AUTH
+
   it('should authorization status is «auth» when server return 200', async () => {
     const store = mockStore();
     mockAPI.onGet(APIRoute.Login).reply(200, user);
@@ -106,6 +113,7 @@ describe('Async actions', () => {
 
     expect(actions).toEqual([
       checkAuthAction.pending.type,
+      fetchFavoritesAction.pending.type,
       checkAuthAction.fulfilled.type,
     ]);
   });
@@ -124,6 +132,7 @@ describe('Async actions', () => {
 
     expect(actions).toEqual([
       loginAction.pending.type,
+      fetchFavoritesAction.pending.type,
       redirectToRoute.type,
       loginAction.fulfilled.type,
     ]);
@@ -134,6 +143,40 @@ describe('Async actions', () => {
       'secret'
     );
   });
+
+  it('should fetch favorite offers when server return 200', async () => {
+    const store = mockStore();
+    mockAPI.onGet(APIRoute.Favorite).reply(200, offers);
+
+    expect(store.getActions()).toEqual([]);
+
+    await store.dispatch(fetchFavoritesAction());
+
+    const actions = store.getActions().map(({ type }) => type);
+
+    expect(actions).toEqual([
+      fetchFavoritesAction.pending.type,
+      fetchFavoritesAction.fulfilled.type,
+    ]);
+  });
+
+  it('should change favorite offer when server return 200', async () => {
+    const store = mockStore();
+    mockAPI.onPost(`${APIRoute.Favorite}/${id}/${status}`).reply(200, offer);
+
+    expect(store.getActions()).toEqual([]);
+
+    await store.dispatch(changeFavoriteAction({ id: Number(id), status }));
+
+    const actions = store.getActions().map(({ type }) => type);
+
+    expect(actions).toEqual([
+      changeFavoriteAction.pending.type,
+      changeFavoriteAction.fulfilled.type,
+    ]);
+  });
+
+  //REVIEWS
 
   it('should fetch reviews action when server returns 200', async () => {
     const store = mockStore();

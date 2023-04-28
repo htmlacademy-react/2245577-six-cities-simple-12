@@ -6,10 +6,14 @@ type ImagePlaceProps = {
   previewImage: string;
   title: string;
   id: number;
-  type: 'home' | 'property';
+  type: 'favorite' | 'home' | 'property';
 };
 
 const sizes = {
+  favorite: {
+    width: 150,
+    height: 110,
+  },
   home: {
     width: 260,
     height: 200,
